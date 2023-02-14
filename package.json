@@ -1,0 +1,31 @@
+{
+  "devDependencies": {
+    "@types/jest": "^29.4.0"
+  },
+  "dependencies": {
+    "coverage": "^0.4.1",
+    "jest": "^29.4.2"
+  },
+  "name": "desafio-portluis",
+  "description": "Programa cuja execução cruza pedidos e notas gerando uma listagem de pedidos\r pendentes.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --verbose --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rachellizandra/desafio-portluis.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rachellizandra/desafio-portluis/issues"
+  },
+  "homepage": "https://github.com/rachellizandra/desafio-portluis#readme"
+}
