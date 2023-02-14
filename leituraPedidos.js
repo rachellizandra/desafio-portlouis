@@ -1,9 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const Pedido = require('./pedidos');
+const Pedido = require('./Pedido');
 
 const pedidos = fs.readdirSync(path.resolve('pedidos'))
-
 
 const pedidosParsed = pedidos.map((file) => {
     const raw = fs.readFileSync(path.resolve('pedidos', file), "utf-8") //importar e leitura dos arquivos notas txt
@@ -13,7 +12,7 @@ const pedidosParsed = pedidos.map((file) => {
     return parsedData.map((pedido) => {
         const valorUnitarioProduto = +(+pedido["valor_unitário_produto"].replace("," , ".")).toFixed(2)
         //return Object.assign(pedido, {"valor_unitário_produto": valorUnitarioProduto})
-        return new Pedido(pedido["número_item"], pedido["código_produto"], pedido["quantidade_produto"], valorUnitarioProduto, file, pedido["saldo_valor"]);
+        return new Pedido(pedido["número_item"], pedido["código_produto"], pedido["quantidade_produto"], valorUnitarioProduto, file[1]);
     }); //adiciona o arquivo em cada objeto
 }).flatMap((pedido) => pedido)//transforma o array bidimensional em unidimensional
 
