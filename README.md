@@ -17,6 +17,7 @@ Estão em arquivos de tipo texto UTF-8 num único diretório. Cada arquivo é um
 Gravar um arquivo de tipo texto com a listagem dos pedidos pendentes. Para cada pedido pendente, informar: o valor total do pedido (soma dos valores totais dos seus itens), o saldo do valor (soma dos valores correspondentes ao saldo de quantidade de cada item pendentes) e uma lista dos itens pendentes, na qual cada item pendente exibe o número do item e o saldo da quantidade (quanto faltou de quantidade do produto para que o item não ficasse pendente).
 
 # Implementações futuras
-- Refatoração do código e organização dos arquivos em pastas separadas;
+- Verificar os erros da classe Nota;
+- Criar mais classes derivadas de Nota para criar a responsabilidade única
+- Refatoração do código;
 - Testes unitários utilizando Jest;
-- Cruzamento de notas e pedidos pendentes em um formato mais visível.
