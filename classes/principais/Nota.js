@@ -6,95 +6,82 @@ const PedidoPendenteExcecao = require("../exceptions/PedidoPendenteExcecao");
 const Utils = require('./Utils');
 
 class Nota{
-  constructor(idPedido, numeroItem, quantidadeProduto, id) {
-    this.idPedido = idPedido;
-    this.numeroItem = numeroItem;
-    this.quantidadeProduto = quantidadeProduto;
-    this.pedidos = pedidosParsed.filter(
-      (pedido) => pedido.id == idPedido && numeroItem == pedido.numeroItem
-    ); // o método .filter() pega todos os pedidos da nota
+  constructor(id, itens) {
     this.id = id;
-    console.log(this.pedidos)
+    this.itens = itens
+    this.pedidos = []
+    this.itens.forEach((item) => {
+      const pedido = pedidosParsed.find(
+        (pedido) => pedido.id == item.idPedido && item.numeroItem == pedido.numeroItem
+        );
+        this.pedidos.push(pedido)
+    })
     this._validarTipos();
   }
 
   _validarTipos() {
     //_ ou # indica que o método é privado
+    this.itens.forEach((item) => {
+      Utils.validarValorInteiro(item.idPedido,"idPedido");
 
-    Utils.validarValorInteiro(this.idPedido,"idPedido");
+      Utils.validarValorMinimo(item.idPedido, 0, "idPedido");
+      
+      Utils.validarValorInteiro(item.numeroItem, "numeroItem");
+  
+      Utils.validarValorMinimo(item.numeroItem, 0, "numeroItem");
+  
+      Utils.validarValorInteiro(item.quantidadeProduto, "quantidadeProduto");
+  
+      Utils.validarValorMinimo(item.quantidadeProduto, 0, "quantidadeProduto");
+    })
 
-    Utils.validarValorMinimo(this.idPedido, 0, "idPedido");
-    
-    Utils.validarValorInteiro(this.numeroItem, "numeroItem");
-
-    Utils.validarValorMinimo(this.numeroItem, 0, "numeroItem");
-
-    Utils.validarValorInteiro(this.quantidadeProduto, "quantidadeProduto");
-
-    Utils.validarValorMinimo(this.quantidadeProduto, 0, "quantidadeProduto");
-
-  }
-
-  calcularQtdProdutosNosPedidos() {
-    return this.pedidos.reduce(
-      (total, pedido) => total + pedido.quantidadeProduto,
-      0
-    );
   }
 
   validarPedidosDuplicados() {
-    const pedidosMapeados = new Map()
-    this.pedidos.forEach((pedido) => {
-      if(pedidosMapeados.has(pedido.numeroItem)) { //verificar se existe algum pedido com o numero_item duplicado
-        throw new PedidosDuplicadoExcecao(pedido)
-      }
-      return pedidosMapeados.set(pedido.numeroItem, pedido)
-    })
+    try {
+      const pedidosMapeados = new Map()
+      this.pedidos.forEach((pedido) => {
+        if(pedidosMapeados.has(pedido.numeroItem)) { //verifica se existe algum pedido com o numero_item duplicado
+          throw new PedidosDuplicadoExcecao(pedido)
+        }
+        return pedidosMapeados.set(pedido.numeroItem, pedido)
+      })
+    } catch (error) {
+      console.error(error)
+    }
+
   }
 
   ordenarPedidos() {
     const pedidosOrdenados = this.pedidos.sort((a, b) => a.numeroItem - b.numeroItem) //ordena o numero_item dos pedidos em ordem crescente
-    //console.log(pedidosOrdenados)
-  
-    // for(let i = 0; i < this.pedidos.length; i++) {
-    //   if(pedidosOrdenados[i]?.numeroItem !== i+1) {
-    //     //console.log("pedidos ordenados: ", pedidosOrdenados[i])
-    //    // throw new PedidoInconsistente(pedidosOrdenados[i])
+
+    //verificar por que não está validando 
+    // try {
+    //   for(let i = 0; i < this.pedidos.length; i++) {
+    //     if(pedidosOrdenados[i].numeroItem !== i+1) {
+    //       //console.log("pedidos ordenados: ", pedidosOrdenados[i])
+    //       throw new PedidoInconsistente(pedidosOrdenados[i])
+    //     }
     //   }
+    // } catch (error) {
+    //   console.error(error)
     // }
+    return pedidosOrdenados
   }
 
-  validarPedidosComNotas(relatorioPedidos) {
-    this.pedidos.forEach((pedido) => {
-      if(pedido.numeroItem == this.numeroItem) {
-          if(pedido.quantidadeProduto <= this.quantidadeProduto) {
-              relatorioPedidos.push(["Pedidos válidos: ", pedido.codigoProduto, "numero_item: " + pedido.numeroItem, "idNota: " + this.id, "idPedido: " + pedido.id, "Valor total: " + pedido.calcularValor()])
-          } else {
-              relatorioPedidos.push(["Pedidos pendentes: ", pedido.codigoProduto, "numero_item: " + pedido.numeroItem, "idNota: " + this.id, "idPedido: " + pedido.id, "Valor total: " + pedido.calcularValor(), "Saldo do valor: " + this.calcularQtdProdutosNosPedidos()])
-              //return relatorioPedidos.push([new PedidoPendenteExcecao(pedido)])
-          }
-       } else {
-         relatorioPedidos.push(["Pedidos excedidos: ", pedido.codigoProduto, pedido.numeroItem, this.id, pedido.id])
-      }
-  })
-
-  // const pedidosOrdenados = this.pedidos.sort((a, b) => a.numeroItem - b.numeroItem) //ordena o numero_item dos pedidos em ordem crescente
-  // console.log(pedidosOrdenados)
-
-  // for(let i = 0; i < this.pedidos.length; i++) {
-  //   if(pedidosOrdenados[i]?.numeroItem !== i+1) {
-  //     //console.log("pedidos ordenados: ", pedidosOrdenados[i])
-  //    // throw new PedidoInconsistente(pedidosOrdenados[i])
-  //   }
-  // }
-
-  //Para continuar: 
-
-  // pedidosParsed ou this.pedidos.forEach((pedido) => {
-  //   if(this.numeroItem !== pedido.numeroItem && this.idPedido !== pedido.id) {
-  //     console.error("Id pedido e numero item que não existem: \n", pedido ,"\n", this)
-  //   }
-  // })
+  validarPedidosComNotas(relatorioPedidoPendentes, relatorioPedidoValidos) {
+    this.itens.forEach((item) => {
+      this.pedidos.forEach((pedido) => {
+        if(pedido.numeroItem == item.numeroItem) {
+            if(pedido.quantidadeProduto <= item.quantidadeProduto) {
+              return relatorioPedidoValidos.push({data: `código_produto: ${pedido.codigoProduto}, número_item: ${pedido.numeroItem}, idPedido: ${pedido.id}, valor_total: ${pedido.calcularValor()}, saldo_valor: ${this.calcularQtdProdutosNosPedidos()}`})
+              } else {
+                //verificar por que a função this.calcularDiferencaDeProdutos() está retornando undefined em pedidos pendentes
+              return relatorioPedidoPendentes.push({data: `código_produto: ${pedido.codigoProduto}, número_item: ${pedido.numeroItem}, idPedido: ${pedido.id}, valor_total: ${pedido.calcularValor()}, saldo_valor: ${this.calcularQtdProdutosNosPedidos()}, "quantidade_faltante:" ${this.calcularDiferencaDeProdutos()}`})
+            }
+         }
+    })
+    })
 }
 
   validarValoresDosPedidosENotas(produtosPedidos, somaValoresDoPedidos) {
@@ -108,31 +95,61 @@ class Nota{
     return calculoTotal;
   }
 
+  
+  calcularQtdProdutosNosPedidos() {
+    return this.pedidos.reduce(
+      (total, pedido) => total + pedido.quantidadeProduto,
+      0
+    );
+}
+
   calcularQtdProdutosNotas(produtosNotas) {
-    if(!produtosNotas.has(this.id) && !produtosNotas.has(this.numeroItem)) { //.has() -> verifica se existe em produtosNotas a chave contendo o id
-      //throw new NotaInconsistente(this)
+    this.itens.forEach((item) => {
+      if(!produtosNotas.has(this.id) && !produtosNotas.has(item.numeroItem)) { //.has() -> verifica se existe em produtosNotas a chave contendo o id e o numeroitem
+        //throw new NotasInconsistente(item)
+      }
+      if(produtosNotas.has(this.id)) { //.has() -> verifica se existe em produtosNotas a chave contendo o id
+        const somatorioProdutosNotas = produtosNotas.get(this.id) + item.quantidadeProduto
+        return produtosNotas.set(this.id, somatorioProdutosNotas)
+    } else {
+        return produtosNotas.set(this.id, item.quantidadeProduto)
     }
-
-    if(produtosNotas.has(this.id)) { //.has() -> verifica se existe em produtosNotas a chave contendo o id
-      return produtosNotas.set(this.id, produtosNotas.get(this.id) + this.quantidadeProduto)
-  } else {
-      return produtosNotas.set(this.id, this.quantidadeProduto)
-  }
+    })
   }
 
+  calcularDiferencaDeProdutos() {
+    this.itens.forEach((item) => {
+    this.pedidos.forEach((pedido) => {
+        if(pedido.numeroItem == item.numeroItem) {
+          if(pedido.quantidadeProduto > item.quantidadeProduto) {
+            const somatorioProdutosNotas = item.quantidadeProduto
+            const somatorioProdutosPedidos = pedido.quantidadeProduto 
+        
+            let diferencaDeProdutos = somatorioProdutosPedidos - somatorioProdutosNotas
+            return diferencaDeProdutos;
+          }
+          return item.quantidadeProduto;
+        }
+      })
+    })
+   }
 
+  
+//verificar por que a função .toTxt() está retornando undefined em notas
   toTxt() {
     return (
-      "{" +
-      '"id_pedido":' +
-      this.idPedido +
-      ", " +
-      '"número_item":' +
-      this.numeroItem +
-      ", " +
-      '"quantidade_produto":' +
-      this.quantidadeProduto +
-      "}"
+      this.itens.forEach((item) => {
+        "{" +
+        '"id_pedido":' +
+        item.idPedido +
+        ", " +
+        '"número_item":' +
+        item.numeroItem +
+        ", " +
+        '"quantidade_produto":' +
+        item.quantidadeProduto +
+        "}"
+      })
     );
   }
 }
