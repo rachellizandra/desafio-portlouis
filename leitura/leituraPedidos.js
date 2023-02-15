@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const Pedido = require('./Pedido');
+const Pedido = require('../classes/principais/Pedido');
 
 const pedidos = fs.readdirSync(path.resolve('pedidos'))
 
