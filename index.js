@@ -1,6 +1,6 @@
-const notasParsed = require('./leitura/leituraNotas');
-const fs = require('fs');
-const path = require('path');
+const notasParsed = require("./leitura/leituraNotas");
+const fs = require("fs");
+const path = require("path");
 
 class SomarValoresTotais extends Map {}
 class SomarProdutosPedidos extends Map {}
@@ -10,36 +10,42 @@ const somaValoresDoPedidos = new SomarValoresTotais();
 const produtosPedidos = new SomarProdutosPedidos();
 const produtosNotas = new SomarProdutosNota();
 
-const relatorioPedidos = [];
+const relatorioPedidoPendentes = [];
+const relatorioPedidoValidos = [];
 
 const verificarCruzamento = () => {
-    notasParsed.forEach((nota) => {
-        nota.ordenarPedidos()
+  notasParsed.forEach((nota) => {
+    nota.ordenarPedidos();
 
-        //console.log(nota.id, nota.toTxt())
-        nota.pedidos.forEach((pedido) => {
+    console.log(nota.id, nota.toTxt());
+    nota.pedidos.forEach((pedido) => {
+      console.log(pedido.id, pedido.toTxt());
+    });
+    nota.validarPedidosDuplicados();
+    nota.validarPedidosComNotas(
+      relatorioPedidoPendentes,
+      relatorioPedidoValidos
+    );
+    nota.validarValoresDosPedidosENotas(produtosPedidos, somaValoresDoPedidos);
+    nota.calcularQtdProdutosNotas(produtosNotas);
+  });
+};
 
-            //console.log(pedido.id, pedido.toTxt())
+verificarCruzamento();
 
-        })
+fs.writeFileSync(path.resolve("Cruzamento", "pedidos_pendentes.txt"), "");
+fs.writeFileSync(path.resolve("Cruzamento", "pedidos_validos.txt"), "");
 
-        nota.validarPedidosDuplicados()
-        nota.validarPedidosComNotas(relatorioPedidos);
-        nota.validarValoresDosPedidosENotas(produtosPedidos, somaValoresDoPedidos);
-        nota.calcularQtdProdutosNotas(produtosNotas); 
+relatorioPedidoPendentes.forEach((relatorio) => {
+  fs.appendFileSync(
+    path.resolve("Cruzamento", "pedidos_pendentes.txt"),
+    "\n" + relatorio.data
+  );
+});
 
-    })}
-
-verificarCruzamento()
-
-// console.log(relatorioPedidos)
-// console.log(produtosNotas)
-// console.log(produtosPedidos)
-// console.log(somaValoresDoPedidos)
-
-fs.writeFileSync(path.resolve('Cruzamento.txt'), JSON.stringify(relatorioPedidos))
-
-//console.log(notasParsed[0])
-
-
-
+relatorioPedidoValidos.forEach((relatorio) => {
+  fs.appendFileSync(
+    path.resolve("Cruzamento", "pedidos_validos.txt"),
+    "\n" + relatorio.data
+  );
+});
