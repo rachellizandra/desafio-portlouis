@@ -1,6 +1,6 @@
 class PedidoInconsistente extends Error{
     constructor(pedido = {}){
-        super(`Pedido id ${pedido.id} está inconsistente.`)
+        super(`Pedido numeroItem ${pedido.numeroItem} e id ${pedido.id} está inconsistente.`)
     }
 }
 
