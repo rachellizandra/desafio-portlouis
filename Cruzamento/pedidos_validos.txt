@@ -1,0 +1,12 @@
+
+código_produto: K13, número_item: 2, idPedido: 1, valor_total: 75, saldo_valor: 17
+código_produto: HU5, número_item: 1, idPedido: 2, valor_total: 165, saldo_valor: 95
+código_produto: WF99, número_item: 3, idPedido: 2, valor_total: 153, saldo_valor: 95
+código_produto: A22, número_item: 1, idPedido: 1, valor_total: 90, saldo_valor: 31
+código_produto: BR1, número_item: 3, idPedido: 4, valor_total: 575, saldo_valor: 256
+código_produto: MR2, número_item: 3, idPedido: 1, valor_total: 173, saldo_valor: 256
+código_produto: VR5, número_item: 2, idPedido: 4, valor_total: 4590, saldo_valor: 256
+código_produto: SF49, número_item: 1, idPedido: 4, valor_total: 901, saldo_valor: 256
+código_produto: T19, número_item: 7, idPedido: 5, valor_total: 147, saldo_valor: 100
+código_produto: FM8, número_item: 5, idPedido: 5, valor_total: 114, saldo_valor: 100
+código_produto: D19, número_item: 5, idPedido: 3, valor_total: 264, saldo_valor: 190

@@ -1,0 +1,24 @@
+
+código_produto: SD9, número_item: 4, idPedido: 1, valor_total: 60, saldo_valor: 17, "quantidade_faltante:" undefined
+código_produto: SS3, número_item: 3, idPedido: 5, valor_total: 270, saldo_valor: 115, "quantidade_faltante:" undefined
+código_produto: RR7, número_item: 4, idPedido: 5, valor_total: 945, saldo_valor: 115, "quantidade_faltante:" undefined
+código_produto: AM9, número_item: 1, idPedido: 5, valor_total: 660, saldo_valor: 115, "quantidade_faltante:" undefined
+código_produto: YY6, número_item: 6, idPedido: 5, valor_total: 159, saldo_valor: 115, "quantidade_faltante:" undefined
+código_produto: SS3, número_item: 3, idPedido: 5, valor_total: 270, saldo_valor: 115, "quantidade_faltante:" undefined
+código_produto: RR7, número_item: 4, idPedido: 5, valor_total: 945, saldo_valor: 115, "quantidade_faltante:" undefined
+código_produto: AM9, número_item: 1, idPedido: 5, valor_total: 660, saldo_valor: 115, "quantidade_faltante:" undefined
+código_produto: YY6, número_item: 6, idPedido: 5, valor_total: 159, saldo_valor: 115, "quantidade_faltante:" undefined
+código_produto: M2, número_item: 2, idPedido: 3, valor_total: 255, saldo_valor: 184, "quantidade_faltante:" undefined
+código_produto: K73, número_item: 3, idPedido: 3, valor_total: 1650, saldo_valor: 184, "quantidade_faltante:" undefined
+código_produto: SD9, número_item: 4, idPedido: 3, valor_total: 108, saldo_valor: 184, "quantidade_faltante:" undefined
+código_produto: A99, número_item: 1, idPedido: 3, valor_total: 390, saldo_valor: 184, "quantidade_faltante:" undefined
+código_produto: MR2, número_item: 3, idPedido: 1, valor_total: 173, saldo_valor: 31, "quantidade_faltante:" undefined
+código_produto: SD9, número_item: 4, idPedido: 1, valor_total: 60, saldo_valor: 31, "quantidade_faltante:" undefined
+código_produto: BR1, número_item: 3, idPedido: 4, valor_total: 575, saldo_valor: 256, "quantidade_faltante:" undefined
+código_produto: MR2, número_item: 3, idPedido: 1, valor_total: 173, saldo_valor: 256, "quantidade_faltante:" undefined
+código_produto: RR7, número_item: 4, idPedido: 5, valor_total: 945, saldo_valor: 100, "quantidade_faltante:" undefined
+código_produto: AM9, número_item: 1, idPedido: 5, valor_total: 660, saldo_valor: 100, "quantidade_faltante:" undefined
+código_produto: SD9, número_item: 4, idPedido: 3, valor_total: 108, saldo_valor: 190, "quantidade_faltante:" undefined
+código_produto: M2, número_item: 2, idPedido: 3, valor_total: 255, saldo_valor: 190, "quantidade_faltante:" undefined
+código_produto: K73, número_item: 3, idPedido: 3, valor_total: 1650, saldo_valor: 190, "quantidade_faltante:" undefined
+código_produto: A99, número_item: 1, idPedido: 3, valor_total: 390, saldo_valor: 190, "quantidade_faltante:" undefined
