@@ -1,3 +1,22 @@
+# Como execultar o projeto
+
+## via docker
+
+### instalar as depencias no docker
+```bash
+docker compose build desafio
+```
+
+### rodar o projeto
+```bash
+docker compose run --rm desafio
+```
+
+### rodar os testes
+```bash
+docker compose run --rm desafio npm run test
+```
+
 # Contexto
 Programa cuja execução cruza pedidos e notas gerando uma listagem de pedidos
 pendentes.
