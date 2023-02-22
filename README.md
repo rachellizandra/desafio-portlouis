@@ -1,18 +1,18 @@
-# Como execultar o projeto
+# Como executar o projeto
 
-## via docker
+## Via Docker
 
-### instalar as depencias no docker
+### Instalar as dependêcias no Docker
 ```bash
 docker compose build desafio
 ```
 
-### rodar o projeto
+### Rodar o projeto
 ```bash
 docker compose run --rm desafio
 ```
 
-### rodar os testes
+### Rodar os testes
 ```bash
 docker compose run --rm desafio npm run test
 ```
