@@ -14,7 +14,7 @@ class Nota{
       const pedido = pedidosParsed.find(
         (pedido) => pedido.id == item.idPedido && item.numeroItem == pedido.numeroItem
         );
-        this.pedidos.push(pedido)
+        if(pedido) this.pedidos.push(pedido)
     })
     this._validarTipos();
   }
@@ -34,6 +34,8 @@ class Nota{
   
       Utils.validarValorMinimo(item.quantidadeProduto, 0, "quantidadeProduto");
     })
+
+    this.validarProdutoNota();
 
   }
 
@@ -77,7 +79,7 @@ class Nota{
               return relatorioPedidoValidos.push({data: `código_produto: ${pedido.codigoProduto}, número_item: ${pedido.numeroItem}, idPedido: ${pedido.id}, valor_total: ${pedido.calcularValor()}, saldo_valor: ${this.calcularQtdProdutosNosPedidos()}`})
               } else {
                 //verificar por que a função this.calcularDiferencaDeProdutos() está retornando undefined em pedidos pendentes
-              return relatorioPedidoPendentes.push({data: `código_produto: ${pedido.codigoProduto}, número_item: ${pedido.numeroItem}, idPedido: ${pedido.id}, valor_total: ${pedido.calcularValor()}, saldo_valor: ${this.calcularQtdProdutosNosPedidos()}, "quantidade_faltante:" ${this.calcularDiferencaDeProdutos()}`})
+              return relatorioPedidoPendentes.push({data: `código_produto: ${pedido.codigoProduto}, número_item: ${pedido.numeroItem}, idPedido: ${pedido.id}, valor_total: ${pedido.quantidadeProduto}, saldo_valor: ${this.calcularQtdProdutosNosPedidos()}, "quantidade_faltante:" ${this.calcularDiferencaDeProdutos(item, pedido)}`})
             }
          }
     })
@@ -117,40 +119,52 @@ class Nota{
     })
   }
 
-  calcularDiferencaDeProdutos() {
-    this.itens.forEach((item) => {
-    this.pedidos.forEach((pedido) => {
-        if(pedido.numeroItem == item.numeroItem) {
-          if(pedido.quantidadeProduto > item.quantidadeProduto) {
-            const somatorioProdutosNotas = item.quantidadeProduto
-            const somatorioProdutosPedidos = pedido.quantidadeProduto 
-        
-            let diferencaDeProdutos = somatorioProdutosPedidos - somatorioProdutosNotas
-            return diferencaDeProdutos;
-          }
-          return item.quantidadeProduto;
-        }
+  validarProdutoNota() {
+    try {
+      this.itens.forEach((item) => {
+        const pedido = pedidosParsed.find(
+          (pedido) => pedido.id == item.idPedido && item.numeroItem == pedido.numeroItem
+          );
+          if(!pedido) throw new NotasInconsistente(item)
       })
-    })
+    } catch (error) {
+      console.error(error)
+    }
+}
+
+  calcularDiferencaDeProdutos(item, pedido) {
+    // this.itens.forEach((item) => {
+    // this.pedidos.forEach((pedido) => {
+    //     if(pedido.numeroItem == item.numeroItem) {
+    //       if(pedido.quantidadeProduto > item.quantidadeProduto) {
+    //         const somatorioProdutosNotas = item.quantidadeProduto
+    //         const somatorioProdutosPedidos = pedido.quantidadeProduto 
+        
+    //         let diferencaDeProdutos = somatorioProdutosPedidos - somatorioProdutosNotas
+    //         return diferencaDeProdutos;
+    //       }
+    //       return item.quantidadeProduto;
+    //     }
+    //   })
+    // })
+      return pedido.quantidadeProduto - item.quantidadeProduto
    }
 
-  
-//verificar por que a função .toTxt() está retornando undefined em notas
   toTxt() {
-    return (
-      this.itens.forEach((item) => {
-        "{" +
-        '"id_pedido":' +
-        item.idPedido +
-        ", " +
-        '"número_item":' +
-        item.numeroItem +
-        ", " +
-        '"quantidade_produto":' +
-        item.quantidadeProduto +
-        "}"
-      })
-    );
+    return this.itens.map((item) => this.itemToTxt(item)).join("\n") //.join() transforma uma array em texto
+  }
+
+  itemToTxt(item) {
+    return "{" +
+    '"id_pedido":' +
+    item.idPedido +
+    ", " +
+    '"número_item":' +
+    item.numeroItem +
+    ", " +
+    '"quantidade_produto":' +
+    item.quantidadeProduto +
+    "}"
   }
 }
 
