@@ -16,8 +16,13 @@ Estão em arquivos de tipo texto UTF-8 num único diretório. Cada arquivo é um
 # Geração de listagem de pedidos pendentes
 Gravar um arquivo de tipo texto com a listagem dos pedidos pendentes. Para cada pedido pendente, informar: o valor total do pedido (soma dos valores totais dos seus itens), o saldo do valor (soma dos valores correspondentes ao saldo de quantidade de cada item pendentes) e uma lista dos itens pendentes, na qual cada item pendente exibe o número do item e o saldo da quantidade (quanto faltou de quantidade do produto para que o item não ficasse pendente).
 
+# Passo a passo de utilização deste repositório
+- Dar um fork ou clonar este repositório
+- Executar o seguinte comando para instalar todas as dependências: npm install
+- Para verificar se o código está funcionando, instalar o [Node.js](https://nodejs.org/en/download/) (qualquer versão a partir do 10), acessar a pasta principal desafio-portlouis, acessar o terminal e digitar o comando: node index.js
+
 # Implementações futuras
-- Verificar os erros da classe Nota;
-- Criar mais classes derivadas de Nota para criar a responsabilidade única
-- Refatoração do código;
-- Testes unitários utilizando Jest;
+- Verificar os erros da classe Nota
+- Criar mais classes derivadas de Nota para criar responsabilidade única
+- Refatoração do código
+- Testes unitários utilizando Jest
