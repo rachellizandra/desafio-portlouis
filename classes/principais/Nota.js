@@ -78,7 +78,6 @@ class Nota{
             if(pedido.quantidadeProduto <= item.quantidadeProduto) {
               return relatorioPedidoValidos.push({data: `código_produto: ${pedido.codigoProduto}, número_item: ${pedido.numeroItem}, idPedido: ${pedido.id}, valor_total: ${pedido.calcularValor()}, saldo_valor: ${this.calcularQtdProdutosNosPedidos()}`})
               } else {
-                //verificar por que a função this.calcularDiferencaDeProdutos() está retornando undefined em pedidos pendentes
               return relatorioPedidoPendentes.push({data: `código_produto: ${pedido.codigoProduto}, número_item: ${pedido.numeroItem}, idPedido: ${pedido.id}, valor_total: ${pedido.quantidadeProduto}, saldo_valor: ${this.calcularQtdProdutosNosPedidos()}, "quantidade_faltante:" ${this.calcularDiferencaDeProdutos(item, pedido)}`})
             }
          }
@@ -133,20 +132,6 @@ class Nota{
 }
 
   calcularDiferencaDeProdutos(item, pedido) {
-    // this.itens.forEach((item) => {
-    // this.pedidos.forEach((pedido) => {
-    //     if(pedido.numeroItem == item.numeroItem) {
-    //       if(pedido.quantidadeProduto > item.quantidadeProduto) {
-    //         const somatorioProdutosNotas = item.quantidadeProduto
-    //         const somatorioProdutosPedidos = pedido.quantidadeProduto 
-        
-    //         let diferencaDeProdutos = somatorioProdutosPedidos - somatorioProdutosNotas
-    //         return diferencaDeProdutos;
-    //       }
-    //       return item.quantidadeProduto;
-    //     }
-    //   })
-    // })
       return pedido.quantidadeProduto - item.quantidadeProduto
    }
 
